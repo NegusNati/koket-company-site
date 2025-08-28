@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* @custom-variant dark (&:is(.dark *)); */
+
+/* 
+Light Theme: Root-level CSS variables 
+-------------------------------------------------- */
+@layer base {
+  :root {
+    --brand-navy: #000080;
+    --brand-gold: #D3AF37;
+    --brand-aqua: #83C6ED;
+    --brand-cantaloupe: #FFA62F;
+    --brand-chetwode: #004A75;
+    --brand-ecru: #FEFFCA;
+
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+  }
+  .dark {
+    --brand-navy: #000080;
+    --brand-gold: #D3AF37;
+    --brand-aqua: #83C6ED;
+    --brand-cantaloupe: #FFA62F;
+    --brand-chetwode: #8581D9;
+    --brand-ecru: #FEFFCA;
+
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+  }
+
+}
+
+@theme {
+   --color-navy: var(--brand-navy);
+   --color-gold: var(--brand-gold);
+    --color-aqua: var(--brand-aqua);
+    --color-cantaloupe: var(--brand-cantaloupe);
+    --color-chetwode: var(--brand-chetwode);
+    --color-ecru: var(--brand-ecru);
+    --color-background: var(--background);
+
+
+}
+
+
+

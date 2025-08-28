@@ -1,0 +1,68 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: website
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - website
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=Host(`koketinvestment.com`) || Host(`www.koketinvestment.com`)"
+      - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.services.app.loadbalancer.server.port=80"
+      - "traefik.http.routers.app.tls=true"
+      - "traefik.http.routers.app.tls.certresolver=myresolver"
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: always
+    environment:
+      DB_SQLITE_FILE: /data/database.sqlite
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:81"
+    volumes:
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
+    networks:
+      - website
+
+  # traefik:
+  #   image: traefik:v3.1
+  #   # command: --api.insecure=true --providers.docker --entrypoints.web.address=:8081
+  #   command:
+  #     - "--api.insecure=false"
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #     - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+  #     - "--certificatesresolvers.myresolver.acme.email=natnaelbirhanu22@gmail.com"
+  #     - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./letsencrypt:/letsencrypt
+  #   networks:
+  #     - laravel
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.traefik.rule=Host(`traefik.koketinvestment.com`)"
+  #     - "traefik.http.routers.traefik.entrypoints=websecure"
+  #     - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+  #     - "traefik.http.routers.traefik.service=api@internal"
+
+networks:
+  website:
+    driver: bridge
+volumes:
+  website:
+    driver: local
