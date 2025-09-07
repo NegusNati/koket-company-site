@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import BackToTop from "@/components/Buttons/BackToTop";
 import FooterCTA from "@/components/CTA/FooterCTA";
+import { Analytics } from "@vercel/analytics/react"
+
 
 const RootLayout: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -99,6 +101,7 @@ const RootLayout: React.FC = () => {
       />
       <Footer />
       <BackToTop backToTopButtonRef={backToTopButtonRef} />
+      <Analytics />
     </div>
   );
 };
