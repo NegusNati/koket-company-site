@@ -7,6 +7,9 @@ import { routeTree } from './routeTree.gen'
 
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
+import { inject } from '@vercel/analytics';
+ 
+inject();
 
 
 const router = createRouter({
